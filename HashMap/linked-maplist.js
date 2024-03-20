@@ -3,7 +3,7 @@ export function LinkedMapList(h = null) {
     let head = h
     let tail = null
     let size = 0
-    const getHead = () => { return head }
+    const isEmpty = () => { return head == null }
 
     function append(key, value) {
         const newNode = new NodeMap(key, value)
@@ -150,6 +150,7 @@ export function LinkedMapList(h = null) {
         edit,
         getKeys,
         getValues,
-        getEntries
+        getEntries,
+        isEmpty
     }
 }

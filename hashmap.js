@@ -1,9 +1,11 @@
-import { LinkedMapList } from "./linked-maplist.js";
+import { LinkedMapList } from "./HashMap/linked-maplist.js";
 export function HashMap() {
+  const loadFactor = 0.8
+  let capacity =  16
   let bucket = []
   let len = 0
   let load = 0
-  let capacity = 16
+  let maxLoad = capacity * loadFactor
   const getBucket = (k) => { return bucket[hash(k)] }
   clear()
 
@@ -11,13 +13,18 @@ export function HashMap() {
     let hashCode = 0;
     const primeNumber = 31;
     for (let i = 0; i < key.length; i++) {
-      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % 16;
+      hashCode = (primeNumber * hashCode + key.charCodeAt(i)) % capacity;
     }
     return hashCode;
   }
   function set(key, value) {
     let current = getBucket(key)
-    if (has(key)) {
+    if(current.isEmpty()){
+      current.append(key, value)
+      len++
+      load++
+      comprobateLoadFactor()
+    } else if (current.containKey(key)) {
       current.edit(key, value)
     } else {
       current.append(key, value)
@@ -61,6 +68,20 @@ export function HashMap() {
     let res = []
     bucket.forEach((b) => { res.push(...b.getEntries()) })
     return res
+  }
+  function comprobateLoadFactor(){
+    if(load > maxLoad){
+      capacity = capacity * 2
+      maxLoad = capacity * loadFactor
+      let newBucket = new Array(capacity)
+      for (let i = 0; i < capacity; i++) {
+        newBucket[i] = new LinkedMapList()
+      }
+      entries().forEach((e)=>{
+        if(e.length>1){newBucket[hash(e[0])].append(e[0],e[1])}
+      })
+      bucket = newBucket
+    }
   }
 
   return {

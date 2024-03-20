@@ -1,4 +1,4 @@
-import { HashMap } from "./HashMap/hashmap.js";
+import { HashMap } from "./hashmap.js";
 const hashMap = new HashMap();
 //1. Calculating at hash
 console.log("Hash for 'dan': "+ hashMap.hash("dan"))
