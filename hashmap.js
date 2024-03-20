@@ -23,7 +23,7 @@ export function HashMap() {
       current.append(key, value)
       len++
       load++
-      comprobateLoadFactor()
+      checkLoad()
     } else if (current.containKey(key)) {
       current.edit(key, value)
     } else {
@@ -69,7 +69,7 @@ export function HashMap() {
     bucket.forEach((b) => { res.push(...b.getEntries()) })
     return res
   }
-  function comprobateLoadFactor(){
+  function checkLoad(){
     if(load > maxLoad){
       capacity = capacity * 2
       maxLoad = capacity * loadFactor
