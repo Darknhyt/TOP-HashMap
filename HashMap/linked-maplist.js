@@ -73,19 +73,6 @@ export function LinkedMapList(h = null) {
             }
         }
     }
-    function toString() {
-        let cont = 0
-        let actual = head
-        let res = ""
-        while (cont < size) {
-            res += `(${actual.value}) → `
-            actual = actual.getNext()
-            cont++
-
-        }
-        res += "null"
-        return res
-    }
     function getKeys() {
         let cont = 0
         let actual = head
@@ -145,7 +132,6 @@ export function LinkedMapList(h = null) {
         append,
         containKey,
         getByKey,
-        toString,
         remove,
         edit,
         getKeys,
